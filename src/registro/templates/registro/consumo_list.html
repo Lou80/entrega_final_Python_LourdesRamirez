@@ -1,0 +1,11 @@
+{% extends 'registro/base.html' %}
+
+{% block contenido %}
+    <h1>Lista de Consumos</h1>
+    <a href="{% url 'registro:consumo_create' %}"><button>Crear Consumo</button></a>
+    <ul>
+        {% for object in object_list %}
+            <p>{{ object.usuario }} | {{ object.alimento }} | {{ object.cantidad}} | {{ object.fecha_consumo }}</p>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

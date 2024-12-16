@@ -1,0 +1,11 @@
+{% extends 'registro/base.html' %}
+
+{% block contenido %}
+    <h1>Lista de alimentos</h1>
+    <a href="{% url 'registro:alimento_create' %}"><button>Crear alimento</button></a>
+    <ul>
+        {% for object in object_list %}
+            <p>{{ object.nombre }}</p>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

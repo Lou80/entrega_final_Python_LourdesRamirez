@@ -1,0 +1,22 @@
+{% extends 'registro/base.html' %}
+
+{% block contenido %}
+    <h1>Lista de Usuarios</h1>
+    <a href="{% url 'registro:usuario_create' %}"><button>Crear usuario</button></a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Meta Diaria de Calorías</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.nombre }}</td>
+                    <td>{{ object.meta_diaria_kcal }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock contenido %}
