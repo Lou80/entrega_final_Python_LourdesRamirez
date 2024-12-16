@@ -56,10 +56,6 @@ class Consumo(models.Model):
     cantidad = models.PositiveIntegerField()
     fecha_consumo = models.DateField()
     usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
-    def calorias_totales(self):
-        if self.alimento:
-            return self.cantidad * self.alimento.kcal
-        return 0
     def __str__(self):
         return f"{self.usuario} consumió {self.cantidad} porción/es de {self.alimento} el {self.fecha_consumo}"
 
