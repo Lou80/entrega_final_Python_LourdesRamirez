@@ -14,4 +14,6 @@ Lourdes Ramirez
 
 ## Aspectos técnicos
 
+He utilizado Django. He creado 3 modelos en la aplicación.
+
 ## Puntos a mejorar

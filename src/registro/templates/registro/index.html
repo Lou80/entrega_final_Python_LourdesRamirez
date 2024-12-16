@@ -1,0 +1,9 @@
+{% extends 'registro/base.html' %}
+{% block contenido %}
+<main >
+    <h1>Bienvenido</h1>
+    <a href="{% url 'registro:alimento_list' %}"><button>Mostrar alimentos</button></a>
+    <a href="{% url 'registro:consumo_list' %}"><button>Mostrar consumos</button></a>
+    <a href="{% url 'registro:usuario_list' %}"><button>Mostrar Usuarios</button></a>
+</main>
+{% endblock contenido %}
