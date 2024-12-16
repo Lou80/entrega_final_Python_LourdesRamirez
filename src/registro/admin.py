@@ -5,14 +5,14 @@ from .models import Usuario, Consumo, Alimento
 
 @admin.register(Alimento)
 class AlimentoAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "tipo")
+    list_display = ("nombre", "tipo", "kcal")
 
 
 @admin.register(Consumo)
 class ConsumoAdmin(admin.ModelAdmin):
-    list_display = ("alimento__nombre", "cantidad", "fecha_consumo")
+    list_display = ("usuario", "fecha_consumo","alimento__nombre", "cantidad"  )
 
 
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
-    list_display = ("meta", "email")
+    list_display = ("nombre", "meta_diaria_kcal")
