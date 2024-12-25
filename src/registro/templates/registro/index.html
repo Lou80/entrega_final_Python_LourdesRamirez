@@ -1,9 +1,43 @@
-{% extends 'registro/base.html' %}
-{% block contenido %}
-<main >
-    <h1>Bienvenido</h1>
-    <a href="{% url 'registro:alimento_list' %}"><button>Mostrar alimentos</button></a>
-    <a href="{% url 'registro:consumo_list' %}"><button>Mostrar consumos</button></a>
-    <a href="{% url 'registro:usuario_list' %}"><button>Mostrar Usuarios</button></a>
-</main>
-{% endblock contenido %}
+{% extends 'core/base.html' %} {% block content %}
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Alimento</h1>
+
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+      <a
+        href="{% url 'registro:categoria_list' %}"
+        class="text-decoration-none"
+      >
+        <div class="card h-100 bg-success text-white">
+          <div class="card-body">
+            <h5 class="card-title">Categorías</h5>
+            <p class="card-text">Gestionar categorías de alimentos</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col">
+      <a href="{% url 'registro:alimento_list' %}" class="text-decoration-none">
+        <div class="card h-100 bg-info text-white">
+          <div class="card-body">
+            <h5 class="card-title">Alimentos</h5>
+            <p class="card-text">Administrar Alimentos disponibles</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col">
+      <a href="{% url 'registro:consumo_list' %}" class="text-decoration-none">
+        <div class="card h-100 bg-danger text-white">
+          <div class="card-body">
+            <h5 class="card-title">Consumo</h5>
+            <p class="card-text">Ver registro de consumo de aliemntos</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,7 +1,22 @@
 from django import forms
 
-from .models import Usuario, Consumo, Alimento
+from .models import Usuario, Consumo, Alimento, Categoria
 
+def validar_nombre(nombre: str):
+    if len(nombre) < 3:
+        raise forms.ValidationError('La longitud debe ser mayor a 3 caracteres')
+    if not nombre.isalpha():
+        raise forms.ValidationError('Debe contener caracteres alfabéticos')
+    return nombre
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ['nombre', 'descripcion']
+
+    def clean_nombre(self):
+        nombre: str = self.cleaned_data.get('nombre', '')
+        return validar_nombre(nombre)
 
 class AlimentoForm(forms.ModelForm):
     class Meta:

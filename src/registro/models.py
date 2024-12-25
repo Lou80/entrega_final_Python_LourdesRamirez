@@ -3,12 +3,12 @@ import unicodedata
 from django.core.exceptions import ValidationError
 from django.db import models
 
-TIPOS_ALIMENTO = [
-    ("proteína", "Proteína"),
-    ("carbohidrato", "Carbohidrato"),
-    ("grasa", "Grasa"),
-    ("vegetal", "Vegetal")
-]
+# TIPOS_ALIMENTO = [
+#     ("proteína", "Proteína"),
+#     ("carbohidrato", "Carbohidrato"),
+#     ("grasa", "Grasa"),
+#     ("vegetal", "Vegetal")
+# ]
 
 
 def normalizar_texto(texto: str) -> str:
@@ -26,10 +26,29 @@ def normalizar_texto(texto: str) -> str:
     texto = texto.encode("ascii", "ignore").decode("utf-8")
     return texto.lower()
 
+class Categoria(models.Model):
+    """Categorías de alimentos"""
+
+    nombre = models.CharField(max_length=255, unique=True)
+    descripcion = models.TextField(blank=True, null=True, verbose_name='descripción')
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Categoría de Alimento'
+        verbose_name_plural = 'Categorías de Alimento'
+
 
 class Alimento(models.Model):
     nombre = models.CharField(max_length=255)
-    tipo = models.CharField(max_length=50, choices=TIPOS_ALIMENTO)
+    tipo = models.ForeignKey(
+        Categoria,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name='categoría',
+    )
     kcal = models.PositiveIntegerField()
 
     def validate_unique(self, exclude=None):
