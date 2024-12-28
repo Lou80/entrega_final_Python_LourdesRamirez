@@ -12,7 +12,7 @@ class UsuarioListView(ListView):
     def get_queryset(self):
         busqueda = self.request.GET.get('busqueda')
         if busqueda:
-            return Usuario.objects.filter(usuario__username__icontains=busqueda)
+            return Usuario.objects.filter(nombre__icontains=busqueda)
         return Usuario.objects.all()
 
 

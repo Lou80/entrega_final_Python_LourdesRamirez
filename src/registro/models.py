@@ -2,13 +2,9 @@ import unicodedata
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
-# TIPOS_ALIMENTO = [
-#     ("proteína", "Proteína"),
-#     ("carbohidrato", "Carbohidrato"),
-#     ("grasa", "Grasa"),
-#     ("vegetal", "Vegetal")
-# ]
+
 
 
 def normalizar_texto(texto: str) -> str:
@@ -41,7 +37,7 @@ class Categoria(models.Model):
 
 
 class Alimento(models.Model):
-    nombre = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=100, db_index=True)
     tipo = models.ForeignKey(
         Categoria,
         on_delete=models.SET_NULL,
@@ -62,20 +58,35 @@ class Alimento(models.Model):
             raise ValidationError("Ya existe. Se ha considerado tildes y mayúsculas.")
 
     def __str__(self):
-        return self.nombre
+        base = f'{self.nombre} {self.kcal} kcal'
+        if self.tipo:
+            return f'{self.tipo} > {base}'
+        return base
+
+    class Meta:
+        unique_together = ('tipo', 'nombre')
+        verbose_name = 'Alimento'
+        verbose_name_plural = 'Alimentos'
 
 class Usuario(models.Model):
+    nombre = models.CharField(max_length=255)
     meta_diaria_kcal = models.PositiveIntegerField(null=True, blank=True)
-    nombre = models.CharField(max_length=255, unique=True)
+    avatar = models.ImageField(upload_to='imagenes_perfil', blank=True, null=True)
     def __str__(self):
         return self.nombre
 
+
 class Consumo(models.Model):
-    alimento = models.ForeignKey(Alimento, on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    alimento = models.ForeignKey(Alimento, on_delete=models.DO_NOTHING)
     cantidad = models.PositiveIntegerField()
-    fecha_consumo = models.DateField()
-    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    ckal_total = models.PositiveIntegerField(editable=False)
+    fecha_consumo = models.DateField(default=timezone.now, editable=False)
+
+    class Meta:
+        ordering = ('-fecha_consumo',)
+
     def __str__(self):
-        return f"{self.usuario} consumió {self.cantidad} porción/es de {self.alimento} el {self.fecha_consumo}"
+        return f"Paciente {self.usuario} consumió {self.cantidad} porción/es de {self.alimento} el {self.fecha_consumo}"
 
 
