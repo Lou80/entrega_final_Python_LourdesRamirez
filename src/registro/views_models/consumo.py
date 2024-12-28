@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from ..forms import ConsumoForm
-from ..models import Usuario, Consumo
+from ..models import Consumo
 
 
 class ConsumoListView(ListView):
@@ -25,8 +25,8 @@ class ConsumoListView(ListView):
         busqueda = self.request.GET.get('busqueda')
         if busqueda:
             return Consumo.objects.filter(
-                vendedor__usuario__username__icontains=busqueda
-            ) | Consumo.objects.filter(registro__nombre__icontains=busqueda)
+                usuario__nombre__icontains=busqueda
+            ) | Consumo.objects.filter(alimento__nombre__icontains=busqueda) | Consumo.objects.filter(alimento__tipo__nombre__icontains=busqueda)
         return Consumo.objects.all()
 
 
@@ -35,40 +35,19 @@ class ConsumoCreateView(CreateView):
     form_class = ConsumoForm
     success_url = reverse_lazy('registro:consumo_list')
 
-    def get_form_kwargs(self) -> dict:
-        """
-        Sobrescribe el método get_form_kwargs para incluir el usuario actual en los argumentos de
-        palabra clave del formulario.
-        Returns:
-            dict: Los argumentos de palabra clave para el formulario, incluyendo el usuario actual.
-        """
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
-
     def form_valid(self, form) -> HttpResponse:
         """
         Maneja la lógica cuando el formulario es válido.
 
-        Este método se llama cuando el formulario ha sido validado correctamente.
-        1. Guarda la consumo sin confirmar la transacción en la base de datos.
-        2. Asigna el vendedor basado en el usuario actual.
-        3. Calcula el precio total de la consumo.
-        4. Actualiza el stock del registro y guarda tanto el registro como la consumo.
-
-        Args:
-            form (Form): El formulario validado que contiene los datos de la consumo.
-
         """
         consumo = form.save(commit=False)
-        consumo.vendedor = Usuario.objects.get(usuario=self.request.user)
-        registro = form.cleaned_data['registro']
+        usuario = form.cleaned_data['usuario']
+        alimento = form.cleaned_data['alimento']
         cantidad = form.cleaned_data['cantidad']
-        consumo.precio_total = registro.precio * cantidad
-        registro.stock -= cantidad
-        registro.save()
+        print(alimento)
+        consumo.kcal_total = alimento.kcal * cantidad
         consumo.save()
-        messages.success(self.request, 'Consumo creada exitosamente')
+        messages.success(self.request, 'Consumo creado exitosamente')
         return super().form_valid(form)
 
 

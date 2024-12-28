@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='consumo',
-            name='ckal_total',
+            name='kcal_total',
             field=models.PositiveIntegerField(default=0, editable=False),
             preserve_default=False,
         ),

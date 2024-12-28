@@ -44,6 +44,7 @@ class Alimento(models.Model):
         null=True,
         blank=True,
         verbose_name='categoría',
+        db_index=True
     )
     kcal = models.PositiveIntegerField()
 
@@ -58,9 +59,9 @@ class Alimento(models.Model):
             raise ValidationError("Ya existe. Se ha considerado tildes y mayúsculas.")
 
     def __str__(self):
-        base = f'{self.nombre} {self.kcal} kcal'
+        base = f'{self.nombre}: {self.kcal} kcal'
         if self.tipo:
-            return f'{self.tipo} > {base}'
+            return f'{base} ({self.tipo})'
         return base
 
     class Meta:
@@ -77,10 +78,10 @@ class Usuario(models.Model):
 
 
 class Consumo(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
+    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING, verbose_name='paciente')
     alimento = models.ForeignKey(Alimento, on_delete=models.DO_NOTHING)
     cantidad = models.PositiveIntegerField()
-    ckal_total = models.PositiveIntegerField(editable=False)
+    kcal_total = models.PositiveIntegerField(editable=False)
     fecha_consumo = models.DateField(default=timezone.now, editable=False)
 
     class Meta:
