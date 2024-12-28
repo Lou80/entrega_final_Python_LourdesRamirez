@@ -1,13 +1,10 @@
 {% extends 'core/base.html' %} {% block content %}
 <div class="container mt-4">
-  <h1 class="text-center mb-4">Alimento</h1>
+  <h1 class="text-center mb-4">Registro de categorías, alimentos y consumo</h1>
 
   <div class="row row-cols-1 row-cols-md-2 g-4">
     <div class="col">
-      <a
-        href="{% url 'registro:categoria_list' %}"
-        class="text-decoration-none"
-      >
+      <a href="{% url 'registro:categoria_list' %}" class="text-decoration-none">
         <div class="card h-100 bg-success text-white">
           <div class="card-body">
             <h5 class="card-title">Categorías</h5>
@@ -22,7 +19,7 @@
         <div class="card h-100 bg-info text-white">
           <div class="card-body">
             <h5 class="card-title">Alimentos</h5>
-            <p class="card-text">Administrar Alimentos disponibles</p>
+            <p class="card-text">Administrar alimentos disponibles</p>
           </div>
         </div>
       </a>
@@ -33,7 +30,7 @@
         <div class="card h-100 bg-danger text-white">
           <div class="card-body">
             <h5 class="card-title">Consumo</h5>
-            <p class="card-text">Ver registro de consumo de aliemntos</p>
+            <p class="card-text">Ver registro de consumo de alimentos</p>
           </div>
         </div>
       </a>
