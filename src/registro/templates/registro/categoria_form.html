@@ -3,11 +3,11 @@
   <div class="card shadow-sm">
     <div class="card-body">
       {% if form.instance.pk %}
-      <h1 class="card-title mb-4 text-primary">
+      <h1 class="card-title mb-4 text-success">
         Alimentos: Categorías - Formulario de edición
       </h1>
       {% else %}
-      <h1 class="card-title mb-4 text-primary">
+      <h1 class="card-title mb-4 text-success">
         Alimentos: Categorías - Formulario de creación
       </h1>
       {% endif %}
@@ -18,9 +18,9 @@
         </div>
         {% endfor %}
         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-          <button type="submit" class="btn btn-primary me-md-2">Guardar</button>
+          <button type="submit" class="btn btn-success me-md-2">Guardar</button>
           <a href="{% url 'registro:categoria_list' %}" class="btn btn-secondary">Volver</a>
-          <a href="{% url 'core:index' %}" class="btn btn-outline-primary">Inicio</a>
+          <a href="{% url 'core:index' %}" class="btn btn-outline-success">Inicio</a>
         </div>
       </form>
     </div>

@@ -5,7 +5,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h2 mb-0 text-gray-800">Pacientes</h1>
     {% if request.user.is_staff %}
-    <a href="{% url 'registro:usuario_create' %}" class="btn btn-primary">
+    <a href="{% url 'registro:usuario_create' %}" class="btn btn-success">
         <i class="fas fa-plus me-2"></i>Crear Paciente
     </a>
     {% endif %}
@@ -18,7 +18,7 @@
                 <div class="input-group">
                     <input type="text" name="busqueda" class="form-control" placeholder="Buscar paciente..."
                         value="{{ request.GET.busqueda }}">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-outline-success">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -51,7 +51,7 @@
                         <td class="text-end">
                             <div class="btn-group" role="group">
                                 <a href="{% url 'registro:usuario_update' usuario.id %}"
-                                    class="btn btn-outline-primary btn-sm">
+                                    class="btn btn-outline-success btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a href="{% url 'registro:usuario_delete' usuario.id %}"
