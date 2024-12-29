@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from .models import Usuario, Consumo, Alimento
+from .models import Usuario, Consumo, Alimento, Categoria
 
+admin.site.register(Categoria)
 
 @admin.register(Alimento)
 class AlimentoAdmin(admin.ModelAdmin):

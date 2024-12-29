@@ -2,13 +2,9 @@ import unicodedata
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
-TIPOS_ALIMENTO = [
-    ("proteína", "Proteína"),
-    ("carbohidrato", "Carbohidrato"),
-    ("grasa", "Grasa"),
-    ("vegetal", "Vegetal")
-]
+
 
 
 def normalizar_texto(texto: str) -> str:
@@ -26,10 +22,30 @@ def normalizar_texto(texto: str) -> str:
     texto = texto.encode("ascii", "ignore").decode("utf-8")
     return texto.lower()
 
+class Categoria(models.Model):
+    """Categorías de alimentos"""
+
+    nombre = models.CharField(max_length=255, unique=True)
+    descripcion = models.TextField(blank=True, null=True, verbose_name='descripción')
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Categoría de Alimento'
+        verbose_name_plural = 'Categorías de Alimento'
+
 
 class Alimento(models.Model):
-    nombre = models.CharField(max_length=255)
-    tipo = models.CharField(max_length=50, choices=TIPOS_ALIMENTO)
+    nombre = models.CharField(max_length=100, db_index=True)
+    tipo = models.ForeignKey(
+        Categoria,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name='categoría',
+        db_index=True
+    )
     kcal = models.PositiveIntegerField()
 
     def validate_unique(self, exclude=None):
@@ -39,24 +55,40 @@ class Alimento(models.Model):
         """
         super().validate_unique(exclude)
         texto_normalizado = normalizar_texto(self.nombre)
-        if Alimento.objects.filter(nombre__iexact=texto_normalizado).exists():
+        alimentos_duplicados = Alimento.objects.filter(nombre__iexact=texto_normalizado).exclude(pk=self.pk)
+        if alimentos_duplicados.exists():
             raise ValidationError("Ya existe. Se ha considerado tildes y mayúsculas.")
 
     def __str__(self):
-        return self.nombre
+        base = f'{self.nombre}: {self.kcal} kcal'
+        if self.tipo:
+            return f'{base} ({self.tipo})'
+        return base
+
+    class Meta:
+        unique_together = ('tipo', 'nombre')
+        verbose_name = 'Alimento'
+        verbose_name_plural = 'Alimentos'
 
 class Usuario(models.Model):
+    nombre = models.CharField(max_length=255)
     meta_diaria_kcal = models.PositiveIntegerField(null=True, blank=True)
-    nombre = models.CharField(max_length=255, unique=True)
+    avatar = models.ImageField(upload_to='imagenes_perfil', blank=True, null=True)
     def __str__(self):
         return self.nombre
 
+
 class Consumo(models.Model):
-    alimento = models.ForeignKey(Alimento, on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(Usuario,  on_delete=models.CASCADE, verbose_name='paciente')
+    alimento = models.ForeignKey(Alimento, on_delete=models.DO_NOTHING)
     cantidad = models.PositiveIntegerField()
-    fecha_consumo = models.DateField()
-    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    kcal_total = models.PositiveIntegerField(editable=False)
+    fecha_consumo = models.DateField(default=timezone.now)
+
+    class Meta:
+        ordering = ('-fecha_consumo',)
+
     def __str__(self):
-        return f"{self.usuario} consumió {self.cantidad} porción/es de {self.alimento} el {self.fecha_consumo}"
+        return f"Paciente {self.usuario} consumió {self.cantidad} porción/es de {self.alimento} el {self.fecha_consumo}"
 
 

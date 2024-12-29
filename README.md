@@ -12,17 +12,17 @@ Lourdes Ramirez
 
 ## Objetivos del Proyecto
 
-Este es un proyecto para llevar un registro por usuario de los alimentos y las calorías consumidas.
-Se crean Alimentos dentro de una categoría con su correspondiente valor calórico.
-Se crean Usuarios con una meta de consumo de calorías.
-Luego se crean consumos relacionando Usuarios con Alimentos.
+Este es un proyecto para llevar un registro por paciente de los alimentos y las calorías consumidas.
+Se crean Alimentos dentro de una Categoría con su correspondiente valor calórico.
+Se crean Pacientes con una meta de consumo de calorías.
+Luego se crean Consumos relacionando Usuarios con Alimentos, calculando automáticamente la cantidad de calorías consumidas.
 
 ## Aspectos técnicos
 
-He utilizado Django. He creado 3 modelos en la aplicación.
+He creado esta aplicación web usando Python. He utilizado también Django y Bootstrap. He creado 4 modelos en la aplicación.
 
 ## Puntos a mejorar
 
-Me gustaría luego agregar métodos que calculen la cantidad total de calorías consumidas por el usuario al agregar consumos.
-Me gustaría mejorar el estilo de la aplicación.
-Me gustaría vincular el proyecto a alguna api que me permita saber el valor calórico de un aliento consumido.
+Considero que todavía se puede hacer bastante para mejorar el estilo de la aplicación.
+Me gustaría vincular el proyecto a alguna api que me permita saber el valor calórico de un alimento consumido sin tener que ingresarlo manualmente.
+También se podría calcular por paciente las calorías consumidas en una fecha y comparar con su meta diaria. Lo mismo podría hacerse con otro tipo de nutrientes, por ejemplo calcular metas diarias de consumo de proteínas o de fibra.

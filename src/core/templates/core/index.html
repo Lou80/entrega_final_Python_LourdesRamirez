@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %} {% load static %} {% block content %}
+<div class="text-center mb-5">
+    <h1 class="display-4 fw-bold">Mi web de alimentación saludable</h1>
+</div>
+
+<div class="row g-4 g-lg-5 align-items-center mb-5">
+    <div class="col-lg-7">
+        <img src="{% static 'core/img/alimentacion-saludable.jpg' %}" alt="imagen"
+            class="img-fluid rounded shadow-lg" />
+    </div>
+    <div class="col-lg-5">
+        <h2 class="fw-bold mb-3">Registro de consumo de alimentos y calorías</h2>
+        <p class="lead mb-4">
+            He desarrollado una aplicación para el registro del consumo de alimentos
+            por paciente. Se pueden registrar pacientes con su meta diaria de consumo de calorías y alimentos con su
+            tipo y cantidad de
+            calorías.
+        </p>
+        {% if user.is_authenticated %}
+        <a class="btn btn-success btn-lg" href="{% url 'registro:index' %}">Comienza los
+            registros</a>
+        {% else %}
+        <a class="btn btn-success btn-lg" href="{% url 'core:login' %}">Inicia sesión o
+            regístrate</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card text-white my-5 shadow">
+    <div class="card-body p-3 text-center" style="background-color:#75be64">
+        <h3 class="fw-light mb-0">Recetas saludables</h3>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% include 'core/componentes/card.html' with titulo="Pollo a la mostaza" contenido="Receta contenido" %}
+    {% include 'core/componentes/card.html' with titulo="Panache de verduras" %}
+</div>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Alimentos: Consumos - Vista en detalle</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Paciente:</dt>
+                <dd class="col-sm-9">{{ object.usuario.nombre }}</dd>
+
+                <dt class="col-sm-3">Alimento:</dt>
+                <dd class="col-sm-9">{{ object.alimento.nombre }}</dd>
+
+                <dt class="col-sm-3">Categoría de alimento:</dt>
+                <dd class="col-sm-9">{{ object.alimento.tipo }}</dd>
+
+                <dt class="col-sm-3">Cantidad:</dt>
+                <dd class="col-sm-9">{{ object.cantidad }} unidad/es o porción/es</dd>
+
+                <dt class="col-sm-3">Calorías Totales:</dt>
+                <dd class="col-sm-9">{{ object.kcal_total }} kcal.</dd>
+
+                <dt class="col-sm-3">Fecha de Consumo:</dt>
+                <dd class="col-sm-9">{{ object.fecha_consumo|date:"d/m/Y" }}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a href="{% url 'registro:consumo_list' %}" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
+{% endblock content %}

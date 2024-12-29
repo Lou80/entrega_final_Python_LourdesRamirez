@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %} {% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Alimento: Vista en detalle</h1>
+
+  <div class="card">
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Nombre:</dt>
+        <dd class="col-sm-9">{{ object.nombre }}</dd>
+
+        <dt class="col-sm-3">Categoría o tipo de alimento:</dt>
+        <dd class="col-sm-9">
+          {% if object.tipo %} {{ object.tipo}} {% else %}
+          <em>Sin tipo</em>
+          {% endif %}
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <a href="{% url 'registro:categoria_list' %}" class="btn btn-secondary"
+      >Volver</a
+    >
+  </div>
+</div>
+{% endblock content %}

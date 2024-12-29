@@ -1,9 +1,56 @@
-{% extends 'registro/base.html' %}
-{% block contenido %}
-<main >
-    <h1>Bienvenido</h1>
-    <a href="{% url 'registro:alimento_list' %}"><button>Mostrar alimentos</button></a>
-    <a href="{% url 'registro:consumo_list' %}"><button>Mostrar consumos</button></a>
-    <a href="{% url 'registro:usuario_list' %}"><button>Mostrar Usuarios</button></a>
-</main>
-{% endblock contenido %}
+{% extends 'core/base.html' %} {% block content %}
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Registro de categorías, alimentos y consumo</h1>
+
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+      <a href="{% url 'registro:categoria_list' %}" class="text-decoration-none">
+        <div class="card h-100 text-white" style="background-color:#fd5c3c;">
+          <div class="card-body">
+            <i class="fa-solid fa-carrot"></i>
+            <h5 class="card-title">Categorías</h5>
+            <p class="card-text">Gestionar categorías de alimentos</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col">
+      <a href="{% url 'registro:alimento_list' %}" class="text-decoration-none">
+        <div class="card h-100 text-white" style="background-color:#923990">
+          <div class="card-body">
+            <i class="fa-solid fa-burger"></i>
+            <h5 class="card-title">Alimentos</h5>
+            <p class="card-text">Administrar alimentos disponibles</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col">
+      <a href="{% url 'registro:usuario_list' %}" class="text-decoration-none">
+        <div class="card h-100 bg-warning text-white">
+          <div class="card-body">
+            <span><i class="fa-solid fa-lemon"></i>
+              <h5 class="card-title">Pacientes</h5>
+            </span>
+            <p class="card-text">Gestionar pacientes</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col">
+      <a href="{% url 'registro:consumo_list' %}" class="text-decoration-none">
+        <div class="card h-100 bg-danger text-white">
+          <div class="card-body">
+            <i class="fa-solid fa-pepper-hot"></i>
+            <h5 class="card-title">Consumos</h5>
+            <p class="card-text">Ver y agregar consumo de alimentos</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock content %}
