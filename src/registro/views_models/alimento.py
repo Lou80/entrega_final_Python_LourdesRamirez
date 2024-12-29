@@ -12,7 +12,7 @@ class AlimentoListView(ListView):
     def get_queryset(self):
         busqueda = self.request.GET.get('busqueda')
         if busqueda:
-            return Alimento.objects.filter(nombre__icontains=busqueda)
+            return Alimento.objects.filter(nombre__icontains=busqueda) | Alimento.objects.filter(tipo__nombre__icontains=busqueda)
         return Alimento.objects.all()
 
 

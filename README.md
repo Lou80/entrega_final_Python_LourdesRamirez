@@ -1,14 +1,21 @@
 # tercera_pre-entrega_Lourdes_Ramirez
 
+## Alumno
+
+Lourdes Ramirez
+
 ## Curso
 
 - Curso de Python
 - Comisión n° 60095
 - Profesor Esteban Acevedo
+- Ayudante: Nicolas Dziuma
 
-## Alumno
+## Link al video de la app en funcionamiento
 
-Lourdes Ramirez
+![pantalla inicial de mi web](src/media/vista_previa_video_demo.png)
+
+https://drive.google.com/file/d/1j_124gSI-GuUwwda0-d5htge4Ejkfc7g/view?usp=sharing
 
 ## Objetivos del Proyecto
 
