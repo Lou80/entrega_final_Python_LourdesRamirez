@@ -79,7 +79,7 @@ class Usuario(models.Model):
 
 
 class Consumo(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING, verbose_name='paciente')
+    usuario = models.ForeignKey(Usuario,  on_delete=models.CASCADE, verbose_name='paciente')
     alimento = models.ForeignKey(Alimento, on_delete=models.DO_NOTHING)
     cantidad = models.PositiveIntegerField()
     kcal_total = models.PositiveIntegerField(editable=False)
