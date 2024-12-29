@@ -44,7 +44,7 @@ class ConsumoCreateView(CreateView):
         usuario = form.cleaned_data['usuario']
         alimento = form.cleaned_data['alimento']
         cantidad = form.cleaned_data['cantidad']
-        print(alimento)
+        fecha_consumo = form.cleaned_data['fecha_consumo']
         consumo.kcal_total = alimento.kcal * cantidad
         consumo.save()
         messages.success(self.request, 'Consumo creado exitosamente')

@@ -55,7 +55,8 @@ class Alimento(models.Model):
         """
         super().validate_unique(exclude)
         texto_normalizado = normalizar_texto(self.nombre)
-        if Alimento.objects.filter(nombre__iexact=texto_normalizado).exists():
+        alimentos_duplicados = Alimento.objects.filter(nombre__iexact=texto_normalizado).exclude(pk=self.pk)
+        if alimentos_duplicados.exists():
             raise ValidationError("Ya existe. Se ha considerado tildes y mayúsculas.")
 
     def __str__(self):
@@ -82,7 +83,7 @@ class Consumo(models.Model):
     alimento = models.ForeignKey(Alimento, on_delete=models.DO_NOTHING)
     cantidad = models.PositiveIntegerField()
     kcal_total = models.PositiveIntegerField(editable=False)
-    fecha_consumo = models.DateField(default=timezone.now, editable=False)
+    fecha_consumo = models.DateField(default=timezone.now)
 
     class Meta:
         ordering = ('-fecha_consumo',)
