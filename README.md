@@ -5,6 +5,7 @@
 - Curso de Python
 - Comisión n° 60095
 - Profesor Esteban Acevedo
+- Ayudante: Nicolas Dziuma
 
 ## Alumno
 
