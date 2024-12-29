@@ -1,4 +1,4 @@
-# tercera_pre-entrega_Lourdes_Ramirez
+# Entrega Final Curso Pyhton Lourdes Ramirez
 
 ## Alumno
 
